@@ -2,11 +2,9 @@
 
 import { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import { Camera, Mic, Monitor, Video, VideoOff, MicOff, MonitorOff } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { User, Camera, Mic, Monitor, Video, VideoOff, MicOff, MonitorOff } from "lucide-react";
 
 export default function VideoConference() {
-  const { toast } = useToast();
   const [isCameraOn, setIsCameraOn] = useState(false);
   const [isAudioOn, setIsAudioOn] = useState(false);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
@@ -30,11 +28,7 @@ export default function VideoConference() {
       streamRef.current = stream;
       setIsCameraOn(true);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to access camera",
-        variant: "destructive",
-      });
+      console.log("error",error);
     }
   };
 
@@ -73,11 +67,7 @@ export default function VideoConference() {
       }
       setIsAudioOn(!isAudioOn);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to toggle audio",
-        variant: "destructive",
-      });
+      console.log("error",error);
     }
   };
 
@@ -101,11 +91,7 @@ export default function VideoConference() {
       }
       setIsScreenSharing(!isScreenSharing);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to toggle screen sharing",
-        variant: "destructive",
-      });
+      console.log("error",error);
     }
   };
 
@@ -124,11 +110,6 @@ export default function VideoConference() {
     } else if (streamRef.current) {
       recordingStream = streamRef.current;
     } else {
-      toast({
-        title: "Error",
-        description: "No stream available to record",
-        variant: "destructive",
-      });
       return;
     }
 
@@ -158,7 +139,7 @@ export default function VideoConference() {
 
     mediaRecorder.start();
     setIsRecording(true);
-  }, [isAudioOn, toast]);
+  }, [isAudioOn]);
 
   const stopRecording = useCallback(() => {
     mediaRecorderRef.current?.stop();
@@ -167,15 +148,9 @@ export default function VideoConference() {
 
   return (
     <div className="space-y-6">
-      <div className="aspect-video bg-muted rounded-lg overflow-hidden">
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="w-full h-full object-cover"
-        />
-      </div>
+    <div className="w-1/2 mx-auto bg-muted rounded-lg overflow-hidden h-[500px] shadow-lg">
+      <video ref={videoRef} autoPlay playsInline muted className="w-full h-full" />
+    </div>
 
       <div className="flex flex-wrap gap-4 justify-center">
         <Button
