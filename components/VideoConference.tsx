@@ -148,7 +148,7 @@ export default function VideoConference() {
 
   return (
     <div className="space-y-6">
-    <div className="w-1/2 mx-auto bg-muted rounded-lg overflow-hidden h-[500px] shadow-lg">
+    <div className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 mx-auto bg-muted rounded-lg overflow-hidden h-[500px] shadow-lg">
       <video ref={videoRef} autoPlay playsInline muted className="w-full h-full" />
     </div>
 
